@@ -6,7 +6,7 @@ export interface BlightCase {
   points: number
   description: string
   images: string[]
-  status: "approved" | "pending" | "revision"
+  status: "approved" | "pending" | "revision" | "added" | "closed"
   createdAt: string
   area: string
   organization: string
@@ -81,5 +81,60 @@ export const blightCases: BlightCase[] = [
     area: "Eastside",
     organization: "Road Maintenance",
   },
+  {
+    id: "M-M-23456794",
+    category: "Abandoned Building",
+    latitude: 33.5186,
+    longitude: -86.8104,
+    points: 25,
+    description:
+      "Abandoned property with overgrown vegetation and accumulated trash in the yard. Several broken appliances visible from the street.",
+    images: ["/placeholder.svg?height=300&width=400"],
+    status: "added",
+    createdAt: "2023-11-27",
+    area: "Westside",
+    organization: "Urban Development",
+  },
+  {
+    id: "M-M-23456795",
+    category: "Illegal Dumping",
+    latitude: 33.5176,
+    longitude: -86.8124,
+    points: 20,
+    description: "Vacant building with broken windows and structural damage. Appears to be a safety hazard.",
+    images: ["/placeholder.svg?height=300&width=400"],
+    status: "added",
+    createdAt: "2023-11-29",
+    area: "Northside",
+    organization: "Environmental Protection",
+  },
+  {
+    id: "M-M-23456796",
+    category: "Graffiti",
+    latitude: 33.5196,
+    longitude: -86.8084,
+    points: 15,
+    description:
+      "Large pile of construction debris dumped on vacant lot. Includes broken concrete, wood, and metal scraps.",
+    images: ["/placeholder.svg?height=300&width=400"],
+    status: "closed",
+    createdAt: "2023-12-01",
+    area: "Downtown",
+    organization: "City Beautification",
+  },
+  {
+    id: "M-M-23456797",
+    category: "Pothole",
+    latitude: 33.5166,
+    longitude: -86.8114,
+    points: 10,
+    description: "Extensive graffiti on public building wall. Approximately 10 feet wide and 6 feet tall.",
+    images: ["/placeholder.svg?height=300&width=400"],
+    status: "closed",
+    createdAt: "2023-12-03",
+    area: "Eastside",
+    organization: "Road Maintenance",
+  },
+  
 ]
 

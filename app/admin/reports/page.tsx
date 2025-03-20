@@ -20,6 +20,7 @@ import {
   AlertCircle,
   FileText,
   Filter,
+  PlusCircle,
 } from "lucide-react"
 import { blightCases } from "@/data/blight-cases"
 
@@ -38,7 +39,9 @@ export default function ReportsPage() {
   const pendingCount = blightCases.filter((c) => c.status === "pending").length
   const approvedCount = blightCases.filter((c) => c.status === "approved").length
   const revisionCount = blightCases.filter((c) => c.status === "revision").length
-  const totalCount = blightCases.length
+  const addedCount = blightCases.filter((c) => c.status === "added").length
+  const closedCount = blightCases.filter((c) => c.status === "closed").length
+  const totalCount = pendingCount + approvedCount + revisionCount + addedCount + closedCount
 
   // Count cases by organization
   const orgCounts = blightCases.reduce(
@@ -72,6 +75,9 @@ export default function ReportsPage() {
     { name: "Approved", value: approvedCount, color: "#22c55e" },
     { name: "Pending", value: pendingCount, color: "#f59e0b" },
     { name: "Revision", value: revisionCount, color: "#ef4444" },
+    { name: "Added", value: addedCount, color: "#3b82f6" },
+    { name: "Closed", value: closedCount, color: "#8b5cf6" },
+    { name: "Total", value: totalCount, color: "#4f46e5" },
   ]
 
   const categoryChartData = Object.entries(categoryCounts).map(([name, value]) => ({
@@ -94,11 +100,11 @@ export default function ReportsPage() {
 
   // Sample time series data
   const timeSeriesData = [
-    { date: "Nov 1", approved: 2, pending: 5, revision: 1 },
+    { date: "Nov 1", approved: 2, pending: 5, revision: 1, added: 1 },
     { date: "Nov 5", approved: 4, pending: 6, revision: 2 },
-    { date: "Nov 10", approved: 6, pending: 4, revision: 3 },
-    { date: "Nov 15", approved: 8, pending: 3, revision: 2 },
-    { date: "Nov 20", approved: 10, pending: 4, revision: 1 },
+    { date: "Nov 10", approved: 6, pending: 4, revision: 3 , added: 2},
+    { date: "Nov 15", approved: 8, pending: 3, revision: 2, added: 1 },
+    { date: "Nov 20", approved: 10, pending: 4, revision: 1, added: 1 },
     { date: "Nov 25", approved: 12, pending: 3, revision: 2 },
     { date: "Nov 30", approved: 15, pending: 2, revision: 1 },
   ]
@@ -393,6 +399,10 @@ export default function ReportsPage() {
                           <div className="w-3 h-3 bg-red-500 rounded-full mr-1"></div>
                           <span className="text-xs">Revision</span>
                         </div>
+                        <div className="flex items-center">
+                          <div className="w-3 h-3 bg-indigo-500 rounded-full mr-1"></div>
+                          <span className="text-xs">Added</span>
+                        </div>
                       </div>
                       <div className="overflow-x-auto">
                         <table className="w-full text-xs">
@@ -402,6 +412,7 @@ export default function ReportsPage() {
                               <th className="px-2 py-1 text-right">Approved</th>
                               <th className="px-2 py-1 text-right">Pending</th>
                               <th className="px-2 py-1 text-right">Revision</th>
+                              <th className="px-2 py-1 text-right">Added</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -411,6 +422,7 @@ export default function ReportsPage() {
                                 <td className="px-2 py-1 text-right">{item.approved}</td>
                                 <td className="px-2 py-1 text-right">{item.pending}</td>
                                 <td className="px-2 py-1 text-right">{item.revision}</td>
+                                <td className="px-2 py-1 text-right">{item.added}</td>
                               </tr>
                             ))}
                           </tbody>
@@ -462,8 +474,10 @@ export default function ReportsPage() {
                               <CheckCircle className="w-4 h-4 text-green-500" />
                             ) : blightCase.status === "pending" ? (
                               <Clock className="w-4 h-4 text-amber-500" />
-                            ) : (
+                            ) : blightCase.status === "revision" ? (
                               <AlertCircle className="w-4 h-4 text-red-500" />
+                            ): (
+                              <PlusCircle className="w-4 h-4 text-indigo-600" />
                             )}
                             <span className="capitalize">{blightCase.status}</span>
                           </div>

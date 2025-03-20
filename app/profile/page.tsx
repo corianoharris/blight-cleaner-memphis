@@ -17,6 +17,7 @@ import {
   CheckCircle,
   AlertCircle,
   Edit,
+  PlusCircle,
 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
@@ -69,7 +70,7 @@ const submissionHistory = [
     submittedAt: "2023-11-22 08:45 AM",
     lastUpdated: "2023-11-23 01:15 PM",
     status: "approved",
-    detailedStatus: "Case Added",
+    detailedStatus: "Approved",
     points: 15,
     area: "Downtown",
   },
@@ -79,7 +80,7 @@ const submissionHistory = [
     organization: "Road Maintenance",
     submittedAt: "2023-11-25 02:30 PM",
     lastUpdated: "2023-11-26 09:10 AM",
-    status: "approved",
+    status: "added",
     detailedStatus: "Case Added",
     points: 10,
     area: "Eastside",
@@ -94,6 +95,39 @@ const submissionHistory = [
     detailedStatus: "In Review",
     points: 25,
     area: "Westside",
+  },
+  {
+    id: "M-M-23456795",
+    category: "Illegal Dumping",
+    organization: "Environmental Protection",
+    submittedAt: "2023-11-29 05:00 PM",
+    lastUpdated: "2023-11-30 11:30 AM",
+    status: "revision",
+    detailedStatus: "Needs Additional Information",
+    points: 20,
+    area: "Northside",
+  },
+  {
+    id: "M-M-23456796",
+    category: "Graffiti",
+    organization: "City Beautification",
+    submittedAt: "2023-12-01 09:45 AM",
+    lastUpdated: "2023-12-02 02:15 PM",
+    status: "added",
+    detailedStatus: "Case Added",
+    points: 15,
+    area: "Downtown",
+  },
+  {
+    id: "M-M-23456797",
+    category: "Pothole",
+    organization: "Road Maintenance",
+    submittedAt: "2023-12-03 03:30 PM",
+    lastUpdated: "2023-12-04 10:10 AM",
+    status: "approved",
+    detailedStatus: "Approved",
+    points: 10,
+    area: "Eastside",
   },
 ]
 
@@ -118,10 +152,17 @@ export default function ProfilePage() {
       ) : (
         <AlertCircle className="w-4 h-4 text-amber-500" />
       )
+    } else if (status === "revision") {
+      return <AlertCircle className="w-4 h-4 text-red-500" />
+    } else if (status === "added") {
+      return <PlusCircle className="w-4 h-4 text-indigo-600" />
     } else {
       return <Edit className="w-4 h-4 text-red-500" />
     }
   }
+
+  console.log(filteredSubmissions)
+  console.log("selected status", statusFilter)
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -226,6 +267,15 @@ export default function ProfilePage() {
                     </div>
                     <p className="font-semibold text-red-600">6</p>
                   </div>
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center">
+                        <Award className="w-4 h-4 text-indigo-600" />
+                      </div>
+                      <p className="text-sm font-medium">Cases added</p>
+                    </div>
+                    <p className="font-semibold text-indigo-600">8</p>
+                  </div>
                 </div>
 
                 <div className="mt-6 p-3 bg-indigo-50 rounded-lg">
@@ -253,9 +303,10 @@ export default function ProfilePage() {
                       <SelectTrigger className="w-[140px] h-8 text-xs">
                         <SelectValue placeholder="Filter by status" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent position="popper">
                         <SelectItem value="all">All Submissions</SelectItem>
                         <SelectItem value="approved">Approved</SelectItem>
+                        <SelectItem value="added">Added</SelectItem>
                         <SelectItem value="pending">Pending</SelectItem>
                         <SelectItem value="revision">Needs Revision</SelectItem>
                       </SelectContent>
@@ -419,7 +470,11 @@ export default function ProfilePage() {
             Settings
           </Button>
 
-          <Button variant="outline" className="w-full justify-start text-red-600 hover:text-red-700 shadow-sm">
+          <Button
+            variant="outline"
+            className="w-full justify-start text-red-600 hover:text-red-700 shadow-sm"
+            onClick={() => router.push("/")}
+          >
             <LogOut className="w-5 h-5 mr-2" />
             Log Out
           </Button>

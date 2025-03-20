@@ -94,7 +94,7 @@ export default function SettingsPage() {
       <Tabs defaultValue="general">
         <div className="flex flex-col md:flex-row gap-6">
           <div className="md:w-64 space-y-6">
-            <TabsList className="flex flex-col h-auto p-0 bg-transparent space-y-1">
+            <TabsList className="flex flex-col items-start h-auto p-0 bg-transparent space-y-1">
               <TabsTrigger
                 value="general"
                 className="justify-start px-3 py-2 h-9 font-normal data-[state=active]:bg-muted"

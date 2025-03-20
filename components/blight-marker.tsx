@@ -5,7 +5,7 @@ import type React from "react"
 import { useState } from "react"
 import { MapPin, Home, Trash2, PaintBucket, Truck, Construction } from "lucide-react"
 import { useRouter } from "next/navigation"
-import type { BlightCase } from "@/types"
+import { BlightCase } from "../data/blight-cases"
 
 interface BlightMarkerProps {
   blightCase: BlightCase
@@ -75,7 +75,7 @@ export function BlightMarker({ blightCase, isVisited, onVisit }: BlightMarkerPro
   const handleClick = () => {
     if (blightCase.status !== "pending") {
       onVisit(blightCase.id)
-      router.push(`/cases/${blightCase.id}`)
+      router.push(`/case/${blightCase.id}`)
     }
   }
 

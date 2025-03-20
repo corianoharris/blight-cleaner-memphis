@@ -3,7 +3,7 @@
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ClipboardList, CheckCircle, AlertCircle, Clock, TrendingUp, TrendingDown, Building } from "lucide-react"
+import { ClipboardList, CheckCircle, AlertCircle, Clock, TrendingUp, TrendingDown, Building, PlusIcon } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { blightCases } from "@/data/blight-cases"
 import { reviewers } from "@/data/reviewers"
@@ -25,6 +25,7 @@ export default function AdminDashboard() {
   const pendingCount = blightCases.filter((c) => c.status === "pending").length
   const approvedCount = blightCases.filter((c) => c.status === "approved").length
   const revisionCount = blightCases.filter((c) => c.status === "revision").length
+  const addedCount = blightCases.filter((c) => c.status === "added").length
   const totalCount = blightCases.length
 
   // Count cases by organization
@@ -110,16 +111,35 @@ export default function AdminDashboard() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-500">Needs Revision</p>
+                <p className="text-sm font-medium text-gray-500">Revision</p>
                 <p className="text-2xl font-bold">{revisionCount}</p>
               </div>
               <div className="p-2 bg-red-100 rounded-full">
-                <AlertCircle className="w-6 h-6 text-red-600" />
+                <CheckCircle className="w-6 h-6 text-red-600" />
               </div>
             </div>
             <div className="flex items-center mt-4 text-sm">
-              <TrendingDown className="w-4 h-4 mr-1 text-red-500" />
-              <span className="text-red-500 font-medium">3%</span>
+              <TrendingUp className="w-4 h-4 mr-1 text-red-500" />
+              <span className="text-red-500 font-medium">18%</span>
+              <span className="ml-1 text-gray-500">from last month</span>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-500">Cases Added</p>
+                <p className="text-2xl font-bold">{addedCount}</p>
+              </div>
+              <div className="p-2 bg-red-100 rounded-full">
+                <PlusIcon className="w-6 h-6 text-gray-600" />
+              </div>
+            </div>
+            <div className="flex items-center mt-4 text-sm">
+              <TrendingDown className="w-4 h-4 mr-1 text-gray-500" />
+              <span className="text-indigo-500 font-medium">3%</span>
               <span className="ml-1 text-gray-500">from last week</span>
             </div>
           </CardContent>

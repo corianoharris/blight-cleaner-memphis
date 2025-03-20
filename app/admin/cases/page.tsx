@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { CheckCircle, AlertCircle, Clock, Search, ChevronLeft, ChevronRight, Eye } from "lucide-react"
+import { CheckCircle, AlertCircle, Clock, Search, ChevronLeft, ChevronRight, Eye, PlusCircle } from "lucide-react"
 import { blightCases } from "@/data/blight-cases"
 
 export default function AdminCasesPage() {
@@ -59,6 +59,8 @@ export default function AdminCasesPage() {
         return <Clock className="w-4 h-4 text-amber-500" />
       case "revision":
         return <AlertCircle className="w-4 h-4 text-red-500" />
+      case "added":
+        return <PlusCircle className="w-4 h-4 text-indigo-600" />
       default:
         return null
     }
@@ -72,6 +74,8 @@ export default function AdminCasesPage() {
         return <Badge className="bg-amber-100 text-amber-800 hover:bg-amber-100">Pending</Badge>
       case "revision":
         return <Badge className="bg-red-100 text-red-800 hover:bg-red-100">Needs Revision</Badge>
+      case "added":
+        return <Badge className="bg-indigo-100 text-indigo-800 hover:bg-indigo-100">Added</Badge>
       default:
         return null
     }
@@ -101,6 +105,7 @@ export default function AdminCasesPage() {
                 <SelectItem value="all">All Statuses</SelectItem>
                 <SelectItem value="pending">Pending</SelectItem>
                 <SelectItem value="approved">Approved</SelectItem>
+                <SelectItem value="added">Added</SelectItem>
                 <SelectItem value="revision">Needs Revision</SelectItem>
               </SelectContent>
             </Select>

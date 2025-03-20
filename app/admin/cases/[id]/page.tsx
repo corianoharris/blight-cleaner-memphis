@@ -97,6 +97,10 @@ export default function AdminCaseDetailPage() {
         return <Badge className="bg-amber-100 text-amber-800 hover:bg-amber-100">Pending</Badge>
       case "revision":
         return <Badge className="bg-red-100 text-red-800 hover:bg-red-100">Needs Revision</Badge>
+      case "added":
+        return <Badge className="bg-indigo-100 text-indigo-800 hover:bg-indigo-100">Added</Badge>
+      case "closed":
+        return <Badge className="bg-indigo-100 text-gray-800 hover:bg-indigo-100">Added</Badge>
       default:
         return null
     }
@@ -124,7 +128,7 @@ export default function AdminCaseDetailPage() {
                     <CardTitle>{blightCase.category}</CardTitle>
                     {getStatusBadge(blightCase.status)}
                   </div>
-                  <p className="text-sm text-gray-500">Case ID: {blightCase.id}</p>
+                  <p className="text-sm text-gray-500">Case ID: {issueNumber}</p>
                 </div>
                 <div className="bg-indigo-100 text-indigo-800 font-bold text-lg p-2 rounded-lg">
                   +{blightCase.points} pts
@@ -152,6 +156,7 @@ export default function AdminCaseDetailPage() {
                     <User className="w-4 h-4 text-gray-500" />
                     <span className="text-sm font-medium">Submitted by:</span>
                     <span className="text-sm">Mayor Young</span>
+                    <span className="text-sm">({blightCase.id})</span>
                   </div>
                 </div>
                 <div className="space-y-2">
@@ -233,6 +238,19 @@ export default function AdminCaseDetailPage() {
                           Request Revision
                         </div>
                       </SelectItem>
+                      <SelectItem value="added">
+                        <div className="flex items-center">
+                          <AlertCircle className="w-4 h-4 text-indigo-500 mr-2" />
+                          Case Added
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="closed">
+                        <div className="flex items-center">
+                          <AlertCircle className="w-4 h-4 text-yellow-500 mr-2" />
+                          Case Closed
+                        </div>
+                      </SelectItem>
+
                     </SelectContent>
                   </Select>
                 </div>

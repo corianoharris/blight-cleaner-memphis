@@ -6,7 +6,8 @@ export interface BlightCase {
   points: number
   description: string
   images: string[]
-  status: "approved" | "pending" | "revision"
+  status: "approved" | "pending" | "revision" | "added"
   createdAt: string
+  organization: string
 }
 
